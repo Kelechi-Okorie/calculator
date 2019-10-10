@@ -65,19 +65,22 @@ let operatorsHandler = (value) => {
     updateInputDisplay();
 };
 
-let sanitizeBeforCalculation = () => {
+let sanitize = () => {
+    operations.count = 0;
+    operations.operators = [];
+    accumulator = "";
+}
+
+let doSign = () => {
+
 };
 
 let calculate = () => {
-    if(accumulator.length == 0) {
-        return;
-    }
 
     let answer;
     let temp = accumulator;
     temp = temp.split(" ");
     let operations2 = operations;
-    console.log('operations2', operations2);
 
     // this while loop performs all the divisions operations for the temp array
     while(operations2.d > 0) {
@@ -126,11 +129,16 @@ let calculate = () => {
 
         operations2.b--;
     }
-    answer = temp.join();
+    // console.log('temp', temp);
+    // answer = temp.join() || 0;
+    console.log('temp', temp[0]);
+    if(temp.length == 0 || Number.isNaN(temp[0])) {
+        answer = 0;
+    } else {
+        answer = temp.join();
+    }
     outputDisplay.textContent = answer;
-    operations.count = 0;
-    operations.operators = [];
-    accumulator = "";
+    sanitize();
 };
 
 let clearAll = () => {
