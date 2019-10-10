@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculator</title>
+    <link rel="shortcut icon" href="./imgs/oluaka.png">
+    <link rel="stylesheet" href="./css/calculator.css">
+    <link rel="stylesheet" href="css/fonts/fontawesome-free-5.10.1-web/css/all.min.css">
+</head>
+<body>
+    <section id="menu-bar">
+        <section id="container">
+            <ul>
+                <li><figure><img src="./imgs/oluaka.png"></figure>&nbsp;Calculator</li>
+                <li><i class="fas fa-minus" class="menu-control"></i></li>
+                <li><i class="fas fa-square" class="menu-control"></i></li>
+                <li><i class="fas fa-times"class="menu-control"></i></li>
+            </ul>
+        </section>
+
+        <section id="display">
+            <div id="input"> </div>
+            <div id="output">0</div>
+        </section>
+        <section id="button-panels">
+            <table>
+                <tbody>
+                    <tr>
+                        <td id="j" onclick="operatorsHandler(this.id)">X&sup2;</td>
+                        <td id="i" onclick="operatorsHandler(this.id)">&radic;</td>
+                        <td id="h" onclick="operatorsHandler(this.id)">Log</td>
+                        <td id="k" onclick="operatorsHandler(this.id)"><i class="fas fa-caret-up"></i></td>
+                    <tr>
+                    <tr>
+                        <td id="e" onclick="operatorsHandler(this.id)">Sin</td>
+                        <td id="f" onclick="operatorsHandler(this.id)">Cos</td>
+                        <td id="g" onclick="operatorsHandler(this.id)">Tan</td>
+                        <td id="l" onclick=operatorsrHandler(this.id)"><i class="fas fa-caret-down"></i></td>
+                    <tr>
+                    <tr>
+                        <td id="m" class="gray" onclick="clearAll()">CE</td>
+                        <td id="n" onclick="clearLastItem()">C</td>
+                        <td id="n" onclick="clearLastItem()"><i class="fas fa-backspace"></i></td>
+                        <td id="/" onclick="operatorsHandler(this.id)">&divide;</td>
+                    <tr>
+                    <tr class="lightgray">
+                        <td class="bold" id="7" onclick="numberHandler(this.id)">7</td>
+                        <td class="bold" id="8" onclick="numberHandler(this.id)">8</td>
+                        <td class="bold" id="9" onclick="numberHandler(this.id)">9</td>
+                        <td id="x" onclick="operatorsHandler(this.id)">&times;</td>
+                    <tr>
+                    <tr class="lightgray">
+                        <td class="bold" id="4" onclick="numberHandler(this.id)">4</td>
+                        <td class="bold" id="5" onclick="numberHandler(this.id)">5</td>
+                        <td class="bold" id="6" onclick="numberHandler(this.id)">6</td>
+                        <td id="-" onclick="operatorsHandler(this.id)">&minus;</td>
+                    <tr class="lightgray">
+                        <td class="bold" id="1" onclick="numberHandler(this.id)">1</td>
+                        <td class="bold" id="2" onclick="numberHandler(this.id)">2</td>
+                        <td class="bold" id="3" onclick="numberHandler(this.id)">3</td>
+                        <td id="+" onclick="operatorsHandler(this.id)">&plus;</td>
+                    </tr>
+                    <tr class="lightgray">
+                        <td id="o" onclick="operatorsHandler(this.id)">&PlusMinus;</td>
+                        <td id="0" onclick="numberHandler(this.id)">0</td>
+                        <td id="p" class="yellowgreen" colspan="2" onclick="calculate()">&equals;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </section>
+    <script src="calculator.js"></script>
+</body>
+</html>

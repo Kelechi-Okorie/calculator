@@ -1,0 +1,17 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "calculator.js",
+  "dependencies": {
+    "node-sass": "^4.12.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "node-sass scss/styles.scss css/calculator.css -wo"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
