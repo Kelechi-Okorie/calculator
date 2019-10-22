@@ -15,7 +15,7 @@
             <ul>
                 <li><figure><img src="./imgs/oluaka.png"></figure>&nbsp;Calculator</li>
                 <li><i class="fas fa-minus" class="menu-control"></i></li>
-                <li><i class="fas fa-square" class="menu-control"></i></li>
+                <li><i class="far fa-square" class="menu-control"></i></li>
                 <li><i class="fas fa-times"class="menu-control"></i></li>
             </ul>
         </section>
@@ -28,16 +28,16 @@
             <table>
                 <tbody>
                     <tr>
-                        <td id="j" onclick="operatorsHandler(this.id)">X&sup2;</td>
-                        <td id="i" onclick="operatorsHandler(this.id)">&radic;</td>
-                        <td id="h" onclick="operatorsHandler(this.id)">Log</td>
-                        <td id="k" onclick="operatorsHandler(this.id)"><i class="fas fa-caret-up"></i></td>
+                        <td id="h" onclick="unaryCalculator(this.id)">X&sup2;</td>
+                        <td id="i" onclick="unaryCalculator(this.id)">&radic;</td>
+                        <td id="j" onclick="unaryCalculator(this.id)">Log</td>
+                        <td id="k" onclick="resultsObj.next('forward')"><i class="fas fa-caret-up"></i></td>
                     <tr>
                     <tr>
-                        <td id="e" onclick="operatorsHandler(this.id)">Sin</td>
-                        <td id="f" onclick="operatorsHandler(this.id)">Cos</td>
-                        <td id="g" onclick="operatorsHandler(this.id)">Tan</td>
-                        <td id="l" onclick=operatorsrHandler(this.id)"><i class="fas fa-caret-down"></i></td>
+                        <td id="e" onclick="unaryCalculator(this.id)">Sin</td>
+                        <td id="f" onclick="unaryCalculator(this.id)">Cos</td>
+                        <td id="g" onclick="unaryCalculator(this.id)">Tan</td>
+                        <td id="l" onclick="resultsObj.next('back')"><i class="fas fa-caret-down"></i></td>
                     <tr>
                     <tr>
                         <td id="m" class="gray" onclick="clearAll()">CE</td>

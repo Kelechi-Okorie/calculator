@@ -24,12 +24,14 @@ let updateInputDisplay = () => {
         slicedAccumulator = accumulator.slice(accumulator.length - 26, accumulator.length);
         accumulator = slicedAccumulator.join("");
         inputDisplay.textContent = accumulator;
-        console.log(accumulator);
     }
 };
 
 let numberHandler = (value) => {
     accumulator += value;
+    if(inputDisplay.style.backgroundColor != 'white') {
+        inputDisplay.style.backgroundColor = 'white';
+    }
     updateInputDisplay();
 };
 
@@ -37,6 +39,7 @@ let operatorsHandler = (value) => {
     accumulator += ' ';
     accumulator += value;
     accumulator += ' ';
+    updateInputDisplay();
     switch(value) {
         case "+" :
             operations.a += 1;
@@ -59,24 +62,17 @@ let operatorsHandler = (value) => {
             operations.operators.push("/");
             break;
         default :
-            console.log("no operator was pressed");
-
+        break;
     }
-    updateInputDisplay();
 };
 
-let sanitize = () => {
+let sanitizeAfterCalculation = () => {
     operations.count = 0;
     operations.operators = [];
     accumulator = "";
 }
 
-let doSign = () => {
-
-};
-
 let calculate = () => {
-
     let answer;
     let temp = accumulator;
     temp = temp.split(" ");
@@ -86,10 +82,7 @@ let calculate = () => {
     while(operations2.d > 0) {
         divIndex = temp.indexOf('/');
         let intermediateResult = Number.parseFloat(temp[divIndex - 1]) / Number.parseFloat(temp[divIndex +1]);
-        console.log(temp);
         temp.splice(divIndex - 1, 3, intermediateResult);
-        console.log(temp);
-        console.log();
 
         operations2.d--;
     }
@@ -98,10 +91,7 @@ let calculate = () => {
     while(operations2.c > 0) {
         multIndex = temp.indexOf('x');
         let intermediateResult = Number.parseFloat(temp[multIndex - 1]) * Number.parseFloat(temp[multIndex +1]);
-        console.log(temp);
         temp.splice(multIndex - 1, 3, intermediateResult);
-        console.log(temp);
-        console.log();
 
         operations2.c--;
     }
@@ -110,10 +100,7 @@ let calculate = () => {
     while(operations2.a > 0) {
         addIndex = temp.indexOf('+');
         let intermediateResult = Number.parseFloat(temp[addIndex - 1]) + Number.parseFloat(temp[addIndex +1]);
-        console.log(temp);
         temp.splice(addIndex - 1, 3, intermediateResult);
-        console.log(temp);
-        console.log();
 
         operations2.a--;
     }
@@ -122,24 +109,95 @@ let calculate = () => {
     while(operations2.b > 0) {
         subIndex = temp.indexOf('-');
         let intermediateResult = Number.parseFloat(temp[subIndex - 1]) - Number.parseFloat(temp[subIndex +1]);
-        console.log(temp);
         temp.splice(subIndex - 1, 3, intermediateResult);
-        console.log(temp);
-        console.log();
 
         operations2.b--;
     }
-    // console.log('temp', temp);
-    // answer = temp.join() || 0;
-    console.log('temp', temp[0]);
     if(temp.length == 0 || Number.isNaN(temp[0])) {
         answer = 0;
+        inputDisplay.style.backgroundColor = '#FF7145';
     } else {
         answer = temp.join();
     }
     outputDisplay.textContent = answer;
-    sanitize();
+    resultsObj.resultsArrayInc(answer);
+    if(answer.length == 0) {
+        outputDisplay.textContent = 0;
+    }
+    sanitizeAfterCalculation();
 };
+
+let unaryCalculator = (value) => {
+    let answer = 0;
+    let temp = accumulator;
+    temp = temp.split(" ");
+    switch(value) {
+        case "e" :
+            outputDisplay.textContent = Math.sin((temp * Math.PI) / 180).toFixed(4);
+            inputDisplay.textContent = "SIN(" + accumulator + ")";
+            break;
+        case "f" :
+            outputDisplay.textContent = Math.cos((temp * Math.PI) / 180).toFixed(4);
+            inputDisplay.textContent = "COS(" + accumulator + ")";
+            break;
+        case "g" :
+            outputDisplay.textContent = Math.tan((temp * Math.PI) / 180).toFixed(4);
+            inputDisplay.textContent = "TAN(" + accumulator + ")";
+            break;
+        case "h" :
+            outputDisplay.textContent = (temp * temp).toString();
+            inputDisplay.textContent = accumulator + "^2";
+            break;
+        case "i" :
+            outputDisplay.textContent = Math.sqrt(temp).toString();
+            inputDisplay.textContent = "SQRT " + accumulator;
+            break;
+        case "j" :
+            outputDisplay.textContent = Math.log(temp).toString();
+            inputDisplay.textContent = "LOG(" + accumulator + ")" ;
+            break;
+        default :
+            break;
+    }
+    sanitizeAfterCalculation();
+}
+
+let resultsObj = {
+    results: [],
+    indexIterator: 0,
+    resetIterator: () => {
+        resultsObj.indexIterator = resultsObj.results.length - 1;
+    },
+    resultsArrayInc: (value) => {
+        resultsObj.results.push(value);
+        resultsObj.resetIterator();
+    },
+    next: (value) => {
+        if(!resultsObj.results.length > 0) {
+            return;
+        }
+
+        switch(value) {
+            case "forward" :
+                if(resultsObj.indexIterator + 1 == resultsObj.results.length) {
+                    return;
+                }
+                resultsObj.indexIterator++
+                outputDisplay.textContent = resultsObj.results[resultsObj.indexIterator];
+                break;
+            case "back" :
+                if(resultsObj.indexIterator  <= 0) {
+                    return;
+                }    
+                resultsObj.indexIterator--;
+                outputDisplay.textContent = resultsObj.results[resultsObj.indexIterator];
+                break;
+            default :
+                break;
+        }
+    },
+
+}
 
 let clearAll = () => {
     inputDisplay.textContent = "";
@@ -150,6 +208,9 @@ let clearAll = () => {
     operations.c = 0;
     operations.d = 0;
     operations.count = 0;
+    inputDisplay.style.backgroundColor = 'white';
+    resultsObj.resetIterator();
+
 };
 
 
@@ -198,7 +259,6 @@ let removeLastOperatorItem = () => {
     }
 
     operations.count -= 1;
-    console.log('operations.count', operations.count);
 };
 
 let clearLastItem = () => {
